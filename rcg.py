@@ -1,15 +1,15 @@
 # -*- coding: utf-8 -*-
 """
 Description:
-    random_chord_gen.py
+    rcg.py
     Random Chord Progression Generator: Major, Minor, Diminished, Augmented
 
 Usage:
-    random_chord_gen <num_chords>
+    rcg <num_chords>
 
-Original Author: 
+Original Author:
     davecohen
-    
+
 Contributing Author:
     Jeff Wright <jeff.washcloth@gmail.com>
 """
