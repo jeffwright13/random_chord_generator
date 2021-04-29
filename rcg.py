@@ -3,11 +3,18 @@ Description:
     rcg.py:
     Random Chord Generator
     Generate a sequence of random chords and print them to console.
+    By default, the quality of the generated chords are major and minor.
+    Use the "--augmented" (or "-a") flag to generate augmented chords.
+    Use the "--diminished" (or "-d") flag to generate diminished chords.
+    By default, accidentals are printed as flats.
+    Use the "--sharps" (or "-s") flag to show accidentals as sharps.
 
 Usage:
-    rcg.py [-ad] [-f | -s] <num_chords>
+    rcg.py [-admM] [-f |-s] <num_chords>
     rcg.py -a | --augmented
     rcg.py -d | --diminished
+    rcg.py -m | --minor
+    rcg.py -M | --major
     rcg.py -f | --flats <num_chords>
     rcg.py -s | --sharps <num_chords>
     rcg.py -h | --help
@@ -17,6 +24,8 @@ Arguments:
     num_chords      Number of chords to generate
 
 Options:
+    -m --minor       Include minor chords in generated sequence
+    -M --major       Include major chords in generated sequence
     -a --augmented   Include augmented chords in generated sequence
     -d --diminished  Include diminished chords in generated sequence
     -f --flats       Render chords with flats instead of sharps (default)
@@ -34,7 +43,8 @@ import random
 from docopt import docopt
 
 
-def chords(num_chords, sharps_or_flats="flats", aug=False, dim=False):
+def chords(num_chords, sharps_or_flats="flats", min=True, maj=True, aug=False, dim=False):
+    print(num_chords, sharps_or_flats, min, maj, aug, dim)
     ch_root = [
         "C",
         "C#",
@@ -50,7 +60,9 @@ def chords(num_chords, sharps_or_flats="flats", aug=False, dim=False):
         "B",
     ]
 
-    ch_quality = ["", "m"]
+    ch_quality = []
+    ch_quality.append("") if maj else None
+    ch_quality.append("m") if min else None
     ch_quality.append("dim") if dim else None
     ch_quality.append("+") if aug else None
     ch_prog = "| "
@@ -74,10 +86,13 @@ def chords(num_chords, sharps_or_flats="flats", aug=False, dim=False):
 
 def main():
     args = docopt(__doc__, version="1.1.1")
+    print(args)
     sharps_or_flats = "sharps" if args["--sharps"] else "flats"
     chords(
         int(args["<num_chords>"]),
         sharps_or_flats,
+        args["--minor"],
+        args["--major"],
         args["--augmented"],
         args["--diminished"],
     )
