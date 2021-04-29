@@ -1,11 +1,24 @@
-# -*- coding: utf-8 -*-
 """
 Description:
-    rcg.py
-    Random Chord Progression Generator: Major, Minor, Diminished, Augmented
+    rcg.py:
+    Random Chord Generator
+    Generate a sequence of random chords and print them to console.
 
 Usage:
-    rcg <num_chords>
+    rcg.py [-sf] <num_chords>
+    rcg.py -s | --sharps <num_chords>
+    rcg.py -f | --flats  <num_chords>
+    rcg.py -h | --help
+    rcg.py -V | --version
+
+Arguments:
+    num_chords      Number of chords to generate
+
+Options:
+    -s --sharps     Render chords with sharps instead of flats
+    -f --flats      Render chords with flats instead of sharps
+    -h --help       Show this message and exit
+    -V --version    Show version info and exit
 
 Original Author:
     davecohen
@@ -17,7 +30,7 @@ import random
 from docopt import docopt
 
 
-def chords(ch_num, user_conv):
+def chords(ch_num, user_conv="f"):
     """Generates a random chord progression (printed both as sharps and flats) as a string given an integer number of chords as an argument."""
     ch_root = [
         "C",
@@ -54,11 +67,12 @@ def chords(ch_num, user_conv):
 
 
 def main():
-    args = docopt(__doc__, version="Random Chord Progression Generator")
-
-    print("Generate Random Chord Progressions")
-
+    args = docopt(__doc__, version="1.0.0")
+    print("args: ", args)
+    user_num = int(args['<num_chords>'])
+    print("user_num: ", user_num, type(user_num))
     # user enters number of chords and print x number of progressions:
+    """
     try:
         user_num = int(input("How many chords? (rec. 3-10) "))
         user_x = int(input("How many random progressions? (50 max) "))
@@ -80,7 +94,8 @@ def main():
     for x in range(1, user_x + 1):
         # print('{}/{}: Random Chord Progression of {} chords'.format(x,user_x,user_num))
         chords(user_num, user_conv)
-
+    """
+    chords(user_num)
 
 if __name__ == "__main__":
     main()
