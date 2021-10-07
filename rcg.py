@@ -67,7 +67,7 @@ def chords(num_chords, sharps_or_flats="flats", min=True, maj=True, aug=False, d
     ch_quality.append("+") if aug else None
     ch_prog = "| "
 
-    for x in range(num_chords):
+    for _ in range(num_chords):
         rand_root = random.sample(ch_root, 1)
         rand_quality = random.choice(ch_quality)
         ch_prog += str(rand_root[0] + rand_quality + " | ")
